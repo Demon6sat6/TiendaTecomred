@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Compra laptops, redes y accesorios tecnológicos al mejor precio en Tecomred." />
+    <meta name="author" content="Tecomred" />
+    <meta property="og:title" content="Tienda Tecomred - Tecnología a tu alcance" />
+    <meta property="og:description" content="Compra laptops, redes y accesorios tecnológicos al mejor precio en Tecomred." />
+    <meta property="og:image" content="https://tudominio.com/logo.png" />
+    <title>Tienda Tecomred</title>
+    <link rel="icon" href="https://img.icons8.com/plasticine/100/000000/laptop.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="estilo.css" />
+</head>
+<body>
+
+    <button id="mostrar-carrito" class="btn-carrito-toggle" type="button" aria-label="Mostrar carrito de compras" aria-controls="carrito" aria-expanded="false">
+        <i class="fas fa-shopping-cart"></i>
+    </button>
+
+    <header class="encabezado" role="banner">
+        <div class="header-contenido">
+            <h1>Bienvenido a Tecomred</h1>
+            <p>Encuentra tus productos favoritos al mejor precio</p>
+            <div class="auth-buttons">
+                <button id="btn-login" class="btn-auth">Iniciar Sesión</button>
+                <button id="btn-register" class="btn-auth">Registrarse</button>
+                <span id="user-display" class="user-display" style="display:none;"></span>
+                <button id="btn-logout" class="btn-auth" style="display:none;">Cerrar Sesión</button>
+            </div>
+        </div>
+        <nav role="navigation" aria-label="Menú principal del sitio">
+            <ul class="nav-links">
+                <li><a href="#productos">Productos</a></li>
+                <li><a href="#metodo-pago">Pago</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenido" role="main">
+
+        <section id="filtros" class="filtros" aria-label="Filtros de productos">
+            <h2>Filtrar productos</h2>
+            <div class="filtros-grupo">
+                <label for="filtro-categoria">Categoría:</label>
+                <select id="filtro-categoria" aria-controls="contenedor-productos">
+                    <option value="todos">Todos</option>
+                    <option value="Laptops">Laptops</option>
+                    <option value="Accesorios">Accesorios</option>
+                    <option value="Componentes">Componentes</option>
+                    <option value="Redes">Redes</option>
+                </select>
+            </div>
+
+            <div class="filtros-grupo">
+                <label for="filtro-precio">Precio máximo:</label>
+                <input type="range" id="filtro-precio" min="0" max="5000" step="100" value="5000" aria-valuemin="0" aria-valuemax="5000" aria-valuenow="5000" aria-valuetext="S/ 5000"/>
+                <span id="precio-mostrar">S/ 5000</span>
+            </div>
+
+            <div class="filtros-grupo">
+                <label for="buscador">Buscar por nombre:</label>
+                <input type="text" id="buscador" placeholder="Ej. SSD, router, cable..." aria-label="Buscar producto por nombre" />
+            </div>
+            <button id="btn-limpiar-filtros" class="btn-secundario">Limpiar Filtros</button>
+        </section>
+
+        <aside id="carrito" class="carrito" aria-label="Carrito de compras" aria-hidden="true">
+            <div class="carrito-header">
+                <h2><i class="fas fa-shopping-cart"></i> Carrito</h2>
+                <button id="ocultar-carrito" class="btn-flecha" aria-label="Ocultar carrito" aria-controls="carrito" aria-expanded="true">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <ul id="lista-carrito" class="items-carrito" role="list">
+                <li id="carrito-vacio-mensaje" class="carrito-vacio-mensaje" role="alert">Tu carrito está vacío.</li>
+            </ul>
+            <div class="resumen-carrito">
+                <p class="carrito-total-p">Total: <span id="carrito-total">S/ 0.00</span></p>
+                <button id="btn-vaciar" class="btn-secundario">Vaciar carrito</button>
+                <button id="btn-ir-pago" class="btn-primario">Ir a Pagar</button>
+            </div>
+        </aside>
+
+        <section id="servicios-tienda" class="seccion-servicios">
+            <h2>¿Qué necesitas hoy?</h2>
+            <div class="botones-servicios">
+                <a href="#mantenimiento" class="btn-contacto"><i class="fas fa-tools"></i> Mantenimiento Técnico</a>
+                <a href="#venta" class="btn-contacto"><i class="fas fa-laptop"></i> Venta de Productos</a>
+            </div>
+        </section>
+
+        <section id="mantenimiento" class="contacto">
+            <h2><i class="fas fa-screwdriver-wrench"></i> Servicio Técnico</h2>
+            <p>Ofrecemos mantenimiento y reparación de laptops, PCs, redes y más.</p>
+        </section>
+
+        <section id="venta" class="contacto">
+            <h2><i class="fas fa-store"></i> Venta de Tecnología</h2>
+            <p>Encuentra laptops, accesorios, componentes, routers y más a precios especiales.</p>
+        </section>
+
+        <section id="productos" class="seccion-productos">
+            <h2>Productos disponibles</h2>
+            <div class="productos-container" id="contenedor-productos" role="grid" aria-live="polite" aria-relevant="additions removals">
+            </div>
+            <p id="no-productos-mensaje" class="mensaje-info" style="display:none;" role="alert">No se encontraron productos con los filtros aplicados.</p>
+        </section>
+
+        <section id="metodo-pago" class="seccion-pago">
+            <h2>Método de pago</h2>
+            <form id="form-pago" class="formulario-pago">
+                <div class="grupo-formulario">
+                    <label for="nombre-pago">Nombre completo*</label>
+                    <input type="text" id="nombre-pago" required autocomplete="name" placeholder="Juan Pérez" />
+                </div>
+                <div class="grupo-formulario">
+                    <label for="email-pago">Correo electrónico*</label>
+                    <input type="email" id="email-pago" required autocomplete="email" placeholder="email@ejemplo.com" />
+                </div>
+                <div class="grupo-formulario">
+                    <label for="metodo">Método de pago*</label>
+                    <select id="metodo" required>
+                        <option value="">Selecciona un método</option>
+                        <option value="tarjeta">Tarjeta de crédito/débito</option>
+                        <option value="transferencia">Transferencia bancaria</option>
+                        <option value="yape">Yape / Plin (Perú)</option>
+                    </select>
+                </div>
+
+                <div id="detalles-pago-tarjeta" class="detalles-pago-tarjeta" style="display:none;">
+                    <h3>Detalles de la Tarjeta</h3>
+                    <div class="grupo-formulario">
+                        <label for="numero-tarjeta">Número de tarjeta*</label>
+                        <input type="text" id="numero-tarjeta" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" inputmode="numeric" pattern="[0-9]{13,19}" title="Ingrese un número de tarjeta válido (13-19 dígitos)" autocomplete="cc-number" />
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="fecha-expiracion">Fecha de expiración (MM/AA)*</label>
+                        <input type="text" id="fecha-expiracion" placeholder="MM/AA" maxlength="5" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" title="Ingrese una fecha de expiración válida (MM/AA)" autocomplete="cc-exp" />
+                    </div>
+                    <div class="grupo-formulario">
+                        <label for="cvv">CVV*</label>
+                        <input type="text" id="cvv" placeholder="XXX" maxlength="4" inputmode="numeric" pattern="[0-9]{3,4}" title="Ingrese un CVV válido (3 o 4 dígitos)" autocomplete="cc-csc" />
+                    </div>
+                </div>
+
+                <div class="grupo-formulario checkbox-label">
+                    <input type="checkbox" id="acepta-terminos" required />
+                    <label for="acepta-terminos">Acepto los <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Leer términos y condiciones">términos y condiciones</a></label>
+                </div>
+
+                <p id="pago-mensaje" class="mensaje-pago mensaje-exito" role="status" aria-live="polite" style="display:none;"></p>
+                <p id="pago-error" class="mensaje-pago mensaje-error" role="alert" aria-live="assertive" style="display:none;"></p>
+
+                <button type="submit" class="btn-primario">Confirmar Pago</button>
+            </form>
+        </section>
+
+        <section id="contacto" class="contacto">
+            <h2>Contacto</h2>
+            <p><strong>Ubicación:</strong> Jr. Sinchi Roca #391, Baños del Inca, Cajamarca, Perú</p>
+            <div class="botones-contacto">
+                <a href="https://wa.me/51997176721" class="btn-contacto" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="mailto:tecomred.tcr@gmail.com" class="btn-contacto"><i class="fas fa-envelope"></i> Correo</a>
+                <a href="tel:+51997176721" class="btn-contacto"><i class="fas fa-phone"></i> Llamar</a>
+            </div>
+            <div class="mapa">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.3770308070987!2d-78.50809802528766!3d-7.311749592686866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91b2c45f958444e9%3A0x6b6d5f7560824b22!2sJr.%20Sinchi%20Roca%20%23391%2C%20Ba%C3%B1os%20del%20Inca%2006000!5e0!3m2!1ses-419!2spe!4v1719230571342!5m2!1ses-419!2spe" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Ubicación de Tecomred en Google Maps"></iframe>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="pie-pagina" role="contentinfo">
+        <p>© 2025 Tecomred. Todos los derechos reservados.</p>
+    </footer>
+
+    <div class="chat-bot-container">
+        <button id="chat-bot-btn" class="chat-bot-btn" aria-label="Abrir chat con el bot de la tienda" aria-expanded="false" aria-controls="chat-window">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div id="chat-window" class="chat-window" aria-hidden="true">
+            <div class="chat-header">
+                <h3>Asistente Tecomred</h3>
+                <button id="chat-close-btn" class="chat-close-btn" aria-label="Cerrar chat">×</button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="chat-message message-bot">
+                    ¡Hola! Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Escribe tu mensaje..." aria-label="Escribir mensaje al bot">
+                <button id="chat-send-btn" class="chat-send-btn" aria-label="Enviar mensaje"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-modal" class="modal" aria-labelledby="login-title" aria-modal="true" role="dialog">
+        <div class="modal-contenido">
+            <h2 id="login-title">Iniciar Sesión</h2>
+            <button class="cerrar-modal" aria-label="Cerrar ventana de inicio de sesión">×</button>
+            <form id="login-form" class="auth-form">
+                <div class="grupo-formulario">
+                    <label for="login-email">Correo Electrónico:</label>
+                    <input type="email" id="login-email" required autocomplete="email" />
+                </div>
+                <div class="grupo-formulario">
+                    <label for="login-password">Contraseña:</label>
+                    <input type="password" id="login-password" required autocomplete="current-password" />
+                </div>
+                <button type="submit" class="btn-primario">Entrar</button>
+                <p class="auth-link">¿Olvidaste tu contraseña? <a href="#" id="forgot-password-link">Recuperar cuenta</a></p>
+                <p class="auth-link">¿No tienes cuenta? <a href="#" id="go-to-register">Regístrate aquí</a></p>
+                <p id="login-message" class="auth-message"></p>
+            </form>
+        </div>
+    </div>
+    <div id="register-modal" class="modal" aria-labelledby="register-title" aria-modal="true" role="dialog">
+        <div class="modal-contenido">
+            <h2 id="register-title">Registrarse</h2>
+            <button class="cerrar-modal" aria-label="Cerrar ventana de registro">×</button>
+            <form id="register-form" class="auth-form">
+                <div class="grupo-formulario">
+                    <label for="register-email">Correo Electrónico:</label>
+                    <input type="email" id="register-email" required autocomplete="email" />
+                </div>
+                <div class="grupo-formulario">
+                    <label for="register-password">Contraseña:</label>
+                    <input type="password" id="register-password" required autocomplete="new-password" />
+                </div>
+                <button type="submit" class="btn-primario">Crear Cuenta</button>
+                <p class="auth-link">¿Ya tienes cuenta? <a href="#" id="go-to-login">Inicia Sesión aquí</a></p>
+                <p id="register-message" class="auth-message"></p>
+            </form>
+        </div>
+    </div>
+    <div id="forgot-password-modal" class="modal" aria-labelledby="forgot-password-title" aria-modal="true" role="dialog">
+        <div class="modal-contenido">
+            <h2 id="forgot-password-title">Recuperar Contraseña</h2>
+            <button class="cerrar-modal" aria-label="Cerrar ventana de recuperación de contraseña">×</button>
+            <form id="forgot-password-form" class="auth-form">
+                <p>Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</p>
+                <div class="grupo-formulario">
+                    <label for="forgot-email">Correo Electrónico:</label>
+                    <input type="email" id="forgot-email" required autocomplete="email" />
+                </div>
+                <button type="submit" class="btn-primario">Enviar Enlace</button>
+                <p class="auth-link">¿Recordaste tu contraseña? <a href="#" id="go-to-login-from-forgot">Iniciar Sesión</a></p>
+                <p id="forgot-message" class="auth-message"></p>
+            </form>
+        </div>
+    </div>
+    <script src="aps.js"></script>
+
+</body>
+</html>
