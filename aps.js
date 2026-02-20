@@ -1,6 +1,4 @@
-/* =========================================
-   1. BASE DE DATOS SIMULADA (Catálogo)
-   ========================================= */
+
 const productosDB = [
     { id: 1, nombre: "Laptop Gamer ASUS ROG", precio: 4500, categoria: "Laptops", marca: "ASUS", img: "https://img.icons8.com/color/96/000000/laptop--v1.png", desc: "Rendimiento extremo para juegos AAA sin delay." },
     { id: 2, nombre: "Smartphone Honor X7b", precio: 850, categoria: "Smartphones", marca: "Honor", img: "https://img.icons8.com/color/96/000000/android.png", desc: "Pantalla fluida y batería de larga duración." },
@@ -10,17 +8,13 @@ const productosDB = [
     { id: 6, nombre: "Placa Base ASUS Prime", precio: 600, categoria: "Componentes", marca: "ASUS", img: "https://img.icons8.com/color/96/000000/motherboard.png", desc: "Estabilidad térmica superior para PC Gamers." }
 ];
 
-/* =========================================
-   2. ESTADO GLOBAL DE LA APLICACIÓN
-   ========================================= */
+
 let carrito = JSON.parse(localStorage.getItem('tecomred_carrito')) || [];
 let productosFiltrados = [...productosDB];
 
-/* =========================================
-   3. INICIALIZACIÓN Y EVENTOS MÓVILES
-   ========================================= */
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Retraso simulado para ver el "loading spinner"
+
     setTimeout(() => {
         renderizarProductos(productosFiltrados);
     }, 800);
@@ -32,12 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     configurarChatbot();
     configurarPago();
 
-    // Lógica menú móvil (Hamburger)
+
     document.getElementById('btn-menu-movil').addEventListener('click', () => {
         document.querySelector('.nav-links').classList.toggle('activo');
     });
 
-    // Lógica para mostrar/ocultar filtros en móvil
+
     document.getElementById('btn-toggle-filtros').addEventListener('click', () => {
         const filtros = document.getElementById('filtros');
         filtros.classList.toggle('activo');
@@ -50,9 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-/* =========================================
-   4. RENDERIZADO DE PRODUCTOS
-   ========================================= */
+
 function renderizarProductos(productos) {
     const contenedor = document.getElementById('contenedor-productos');
     const mensajeVacio = document.getElementById('no-productos-mensaje');
@@ -78,7 +70,7 @@ function renderizarProductos(productos) {
         contenedor.appendChild(tarjeta);
     });
 
-    // Asignar eventos a los nuevos botones
+
     document.querySelectorAll('.btn-agregar').forEach(btn => {
         btn.addEventListener('click', (e) => {
             agregarAlCarrito(parseInt(e.target.closest('button').dataset.id));
@@ -86,9 +78,7 @@ function renderizarProductos(productos) {
     });
 }
 
-/* =========================================
-   5. LÓGICA DE FILTROS PROFESIONALES
-   ========================================= */
+
 function configurarFiltros() {
     const buscador = document.getElementById('buscador');
     const checkboxes = document.querySelectorAll('.custom-checkbox input[type="checkbox"]');
@@ -165,9 +155,7 @@ function configurarFiltros() {
     });
 }
 
-/* =========================================
-   6. LÓGICA DEL CARRITO
-   ========================================= */
+
 function configurarCarrito() {
     const toggleCarrito = (e) => { if(e) e.preventDefault(); document.getElementById('carrito').classList.toggle('abierto'); };
     document.getElementById('mostrar-carrito').addEventListener('click', toggleCarrito);
@@ -216,9 +204,7 @@ function actualizarCarritoDOM() {
     totalSpan.textContent = `S/ ${total.toFixed(2)}`;
 }
 
-/* =========================================
-   7. LÓGICA DE MODALES (Login/Registro)
-   ========================================= */
+
 function configurarModales() {
     const cerrarModal = () => document.querySelectorAll('.modal').forEach(m => m.classList.remove('activo'));
     const abrirModal = (id) => { cerrarModal(); document.getElementById(id).classList.add('activo'); };
@@ -227,7 +213,6 @@ function configurarModales() {
     document.getElementById('btn-register').addEventListener('click', () => abrirModal('register-modal'));
     document.querySelectorAll('.cerrar-modal').forEach(btn => btn.addEventListener('click', cerrarModal));
     
-    // Cerrar al hacer clic fuera del modal
     window.addEventListener('click', (e) => {
         if (e.target.classList.contains('modal')) cerrarModal();
     });
@@ -239,9 +224,7 @@ function configurarModales() {
     });
 }
 
-/* =========================================
-   8. CHATBOT BÁSICO (COMPLETO Y FUNCIONAL)
-   ========================================= */
+
 function configurarChatbot() {
     const ventana = document.getElementById('chat-window');
     const btnBot = document.getElementById('chat-bot-btn');
@@ -250,45 +233,43 @@ function configurarChatbot() {
     const inputTexto = document.getElementById('chat-input');
     const contenedorMensajes = document.getElementById('chat-messages');
 
-    // Abrir y cerrar ventana
+
     btnBot.addEventListener('click', () => ventana.classList.add('activo'));
     btnCerrar.addEventListener('click', () => ventana.classList.remove('activo'));
 
-    // Función principal para procesar los mensajes
+
     const enviarMensaje = () => {
         const texto = inputTexto.value.trim();
-        if (!texto) return; // Si está vacío, no hace nada
+        if (!texto) return; 
 
-        // 1. Crear y mostrar el mensaje del usuario (burbuja azul)
+
         const msgUsuario = document.createElement('div');
         msgUsuario.className = 'chat-message message-user';
         msgUsuario.textContent = texto;
         contenedorMensajes.appendChild(msgUsuario);
         
-        // Limpiar la caja de texto y bajar el scroll
+
         inputTexto.value = '';
         contenedorMensajes.scrollTop = contenedorMensajes.scrollHeight;
 
-        // 2. Simular la respuesta automática del Bot (burbuja blanca)
+
         setTimeout(() => {
             const msgBot = document.createElement('div');
             msgBot.className = 'chat-message message-bot';
             msgBot.textContent = "Gracias por escribirnos. Un asesor de Tecomred leerá tu mensaje en breve. ¿Hay algo más en lo que podamos ayudarte?";
             contenedorMensajes.appendChild(msgBot);
             contenedorMensajes.scrollTop = contenedorMensajes.scrollHeight;
-        }, 1000); // Tarda 1 segundo en responder
+        }, 1000); 
     };
 
-    // Asignar los eventos: al hacer clic en el botón o presionar "Enter"
+
     formEnvio.addEventListener('click', enviarMensaje);
     inputTexto.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') enviarMensaje();
     });
 }
 
-/* =========================================
-   9. FORMULARIO DE PAGO
-   ========================================= */
+
 function configurarPago() {
     const formPago = document.getElementById('form-pago');
     const detallesTarjeta = document.getElementById('detalles-pago-tarjeta');
