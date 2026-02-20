@@ -1,11 +1,10 @@
-
 const productosDB = [
-    { id: 1, nombre: "Laptop Gamer ASUS ROG", precio: 4500, categoria: "Laptops", marca: "ASUS", img: "https://img.icons8.com/color/96/000000/laptop--v1.png", desc: "Rendimiento extremo para juegos AAA sin delay." },
-    { id: 2, nombre: "Smartphone Honor X7b", precio: 850, categoria: "Smartphones", marca: "Honor", img: "https://img.icons8.com/color/96/000000/android.png", desc: "Pantalla fluida y batería de larga duración." },
-    { id: 3, nombre: "Mouse Logitech G Pro", precio: 350, categoria: "Accesorios", marca: "Logitech", img: "https://img.icons8.com/color/96/000000/mouse.png", desc: "Precisión absoluta para asegurar tus combos." },
-    { id: 4, nombre: "Monitor Curvo 27'' ASUS", precio: 1100, categoria: "Componentes", marca: "ASUS", img: "https://img.icons8.com/color/96/000000/monitor.png", desc: "165Hz para una ventaja táctica total." },
-    { id: 5, nombre: "Teclado Logitech G915", precio: 800, categoria: "Accesorios", marca: "Logitech", img: "https://img.icons8.com/color/96/000000/keyboard.png", desc: "Switches mecánicos ultrarrápidos e inalámbricos." },
-    { id: 6, nombre: "Placa Base ASUS Prime", precio: 600, categoria: "Componentes", marca: "ASUS", img: "https://img.icons8.com/color/96/000000/motherboard.png", desc: "Estabilidad térmica superior para PC Gamers." }
+    { id: 1, nombre: "Laptop Gamer ASUS ROG", precio: 4500, categoria: "Laptops", marca: "ASUS", img: "https://img.icons8.com/color/96/000000/laptop--v1.png", desc: "Rendimiento extremo para juegos AAA, ideal para simuladores deportivos como FC 26." },
+    { id: 2, nombre: "Smartphone Honor X7b", precio: 850, categoria: "Smartphones", marca: "Honor", img: "https://img.icons8.com/color/96/000000/android.png", desc: "Pantalla fluida y batería de larga duración, perfecto para jugar Free Fire." },
+    { id: 3, nombre: "Mouse Logitech G Pro", precio: 350, categoria: "Accesorios", marca: "Logitech", img: "https://img.icons8.com/color/96/000000/mouse.png", desc: "Precisión absoluta para asegurar tus combos y habilidades en MOBAs." },
+    { id: 4, nombre: "Monitor Curvo 27'' ASUS", precio: 1100, categoria: "Componentes", marca: "ASUS", img: "https://img.icons8.com/color/96/000000/monitor.png", desc: "165Hz para una ventaja táctica total y una visión fluida del mapa." },
+    { id: 5, nombre: "Teclado Logitech G915", precio: 800, categoria: "Accesorios", marca: "Logitech", img: "https://img.icons8.com/color/96/000000/keyboard.png", desc: "Switches mecánicos ultrarrápidos, excelente tanto para jugar como para programar." },
+    { id: 6, nombre: "Placa Base ASUS Prime", precio: 600, categoria: "Componentes", marca: "ASUS", img: "https://img.icons8.com/color/96/000000/motherboard.png", desc: "Estabilidad térmica superior para sesiones intensas." }
 ];
 
 
@@ -14,7 +13,6 @@ let productosFiltrados = [...productosDB];
 
 
 document.addEventListener('DOMContentLoaded', () => {
-
     setTimeout(() => {
         renderizarProductos(productosFiltrados);
     }, 800);
@@ -31,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('.nav-links').classList.toggle('activo');
     });
 
-
+    // Filtros en móvil
     document.getElementById('btn-toggle-filtros').addEventListener('click', () => {
         const filtros = document.getElementById('filtros');
         filtros.classList.toggle('activo');
@@ -63,13 +61,12 @@ function renderizarProductos(productos) {
         tarjeta.innerHTML = `
             <img src="${producto.img}" alt="${producto.nombre}" class="producto-img" loading="lazy">
             <h3>${producto.nombre}</h3>
-            <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem; flex-grow: 1;">${producto.desc}</p>
+            <p class="desc">${producto.desc}</p>
             <p class="producto-precio">S/ ${producto.precio.toFixed(2)}</p>
             <button class="btn-primario btn-agregar" data-id="${producto.id}"><i class="fas fa-cart-plus"></i> Agregar</button>
         `;
         contenedor.appendChild(tarjeta);
     });
-
 
     document.querySelectorAll('.btn-agregar').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -89,7 +86,6 @@ function configurarFiltros() {
     const contenedorChips = document.getElementById('filtros-activos');
     const ordenar = document.getElementById('ordenar-productos');
 
-    // Acordeones colapsables
     document.querySelectorAll('.acordeon-btn').forEach(btn => {
         btn.addEventListener('click', () => btn.parentElement.classList.toggle('abierto'));
     });
@@ -233,35 +229,29 @@ function configurarChatbot() {
     const inputTexto = document.getElementById('chat-input');
     const contenedorMensajes = document.getElementById('chat-messages');
 
-
     btnBot.addEventListener('click', () => ventana.classList.add('activo'));
     btnCerrar.addEventListener('click', () => ventana.classList.remove('activo'));
 
-
     const enviarMensaje = () => {
         const texto = inputTexto.value.trim();
-        if (!texto) return; 
-
+        if (!texto) return;
 
         const msgUsuario = document.createElement('div');
         msgUsuario.className = 'chat-message message-user';
         msgUsuario.textContent = texto;
         contenedorMensajes.appendChild(msgUsuario);
         
-
         inputTexto.value = '';
         contenedorMensajes.scrollTop = contenedorMensajes.scrollHeight;
-
 
         setTimeout(() => {
             const msgBot = document.createElement('div');
             msgBot.className = 'chat-message message-bot';
-            msgBot.textContent = "Gracias por escribirnos. Un asesor de Tecomred leerá tu mensaje en breve. ¿Hay algo más en lo que podamos ayudarte?";
+            msgBot.textContent = "Gracias por escribirnos. Un asesor leerá tu mensaje en breve. ¿Hay algo más en lo que podamos ayudarte?";
             contenedorMensajes.appendChild(msgBot);
             contenedorMensajes.scrollTop = contenedorMensajes.scrollHeight;
         }, 1000); 
     };
-
 
     formEnvio.addEventListener('click', enviarMensaje);
     inputTexto.addEventListener('keypress', (e) => {
@@ -272,34 +262,49 @@ function configurarChatbot() {
 
 function configurarPago() {
     const formPago = document.getElementById('form-pago');
-    const detallesTarjeta = document.getElementById('detalles-pago-tarjeta');
-    const inputsTarjeta = detallesTarjeta.querySelectorAll('input');
-
-    document.getElementById('metodo').addEventListener('change', (e) => {
-        if (e.target.value === 'tarjeta') { 
-            detallesTarjeta.style.display = 'block'; 
-            inputsTarjeta.forEach(i => i.required = true); 
-        } else { 
-            detallesTarjeta.style.display = 'none'; 
-            inputsTarjeta.forEach(i => i.required = false); 
-        }
-    });
 
     formPago.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if(carrito.length === 0) return alert("Tu carrito está vacío.");
-        const msjExito = document.getElementById('pago-mensaje');
-        msjExito.textContent = "Procesando pago..."; 
-        msjExito.style.display = 'block'; 
-        msjExito.style.color = 'var(--color-primario)';
+        e.preventDefault(); 
         
+        if(carrito.length === 0) {
+            alert("Tu carrito está vacío. Agrega productos antes de hacer tu pedido.");
+            return; 
+        }
+
+        const nombre = document.getElementById('nombre-pago').value;
+        const contacto = document.getElementById('email-pago').value;
+        const metodo = document.getElementById('metodo').value;
+
+        let textoWhatsApp = `¡Hola Tecomred! 👋\nMi nombre es *${nombre}* y quiero hacer el siguiente pedido:\n\n`;
+
+        let total = 0;
+        carrito.forEach(item => {
+            textoWhatsApp += `▪️ ${item.cantidad}x ${item.nombre} (S/ ${item.precio.toFixed(2)})\n`;
+            total += (item.precio * item.cantidad);
+        });
+
+        textoWhatsApp += `\n*Total a pagar: S/ ${total.toFixed(2)}*\n`;
+        textoWhatsApp += `\n*Detalles:*\n`;
+        textoWhatsApp += `💳 Método elegido: ${metodo}\n`;
+        textoWhatsApp += `📱 Contacto: ${contacto}\n\n`;
+        textoWhatsApp += `¿Me confirmas el stock y los datos para el pago, por favor?`;
+
+        const textoCodificado = encodeURIComponent(textoWhatsApp);
+        const numeroWhatsApp = "51997176721"; 
+        const url = `https://wa.me/${numeroWhatsApp}?text=${textoCodificado}`;
+
+        const msjExito = document.getElementById('pago-mensaje');
+        msjExito.textContent = "¡Redirigiendo a WhatsApp..."; 
+        msjExito.style.display = 'block'; 
+        msjExito.style.color = '#25D366';
+        
+        window.open(url, '_blank');
+
         setTimeout(() => {
-            msjExito.textContent = "¡Pago exitoso!"; 
-            msjExito.style.color = 'green';
             carrito = []; 
             guardarYActualizarCarrito(); 
             formPago.reset(); 
-            detallesTarjeta.style.display = 'none';
-        }, 1500);
+            msjExito.style.display = 'none';
+        }, 3000);
     });
 }
