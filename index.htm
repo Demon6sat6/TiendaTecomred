@@ -139,37 +139,39 @@
 
             <div class="grid-mitad">
                 <section id="metodo-pago" class="seccion-pago">
-                    <h2>Método de pago</h2>
+                    <h2>Confirmar Pedido</h2>
+                    <p style="text-align: center; margin-bottom: 1.5rem; color: var(--color-texto-claro);">Completa tus datos y enviaremos tu pedido a nuestro WhatsApp para coordinar el pago y envío sin comisiones.</p>
+                    
                     <form id="form-pago" class="formulario-pago">
                         <div class="grupo-formulario">
                             <label for="nombre-pago">Nombre completo*</label>
-                            <input type="text" id="nombre-pago" required placeholder="Juan Pérez" />
+                            <input type="text" id="nombre-pago" required placeholder="Ej. Juan Pérez" />
                         </div>
                         <div class="grupo-formulario">
-                            <label for="email-pago">Correo*</label>
-                            <input type="email" id="email-pago" required placeholder="email@ejemplo.com" />
+                            <label for="email-pago">Correo o Teléfono*</label>
+                            <input type="text" id="email-pago" required placeholder="Ej. juan@email.com o 987654321" />
                         </div>
                         <div class="grupo-formulario">
-                            <label for="metodo">Método*</label>
+                            <label for="metodo">¿Cómo prefieres pagar?*</label>
                             <select id="metodo" required>
-                                <option value="">Selecciona...</option>
-                                <option value="tarjeta">Tarjeta crédito/débito</option>
-                                <option value="transferencia">Transferencia bancaria</option>
-                                <option value="yape">Yape / Plin</option>
+                                <option value="">Selecciona un método...</option>
+                                <option value="Yape">Yape</option>
+                                <option value="Plin">Plin</option>
+                                <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+                                <option value="Efectivo (En tienda)">Efectivo (En tienda - Cajamarca)</option>
                             </select>
                         </div>
-                        <fieldset id="detalles-pago-tarjeta" class="detalles-pago-tarjeta" style="display:none;">
-                            <legend>Tarjeta</legend>
-                            <div class="grupo-formulario"><input type="text" id="numero-tarjeta" placeholder="Número de tarjeta" maxlength="19" pattern="[0-9\s]{13,19}"></div>
-                            <div class="grupo-formulario"><input type="text" id="fecha-expiracion" placeholder="MM/AA" maxlength="5"></div>
-                            <div class="grupo-formulario"><input type="text" id="cvv" placeholder="CVV" maxlength="4"></div>
-                        </fieldset>
+
                         <div class="grupo-formulario checkbox-label">
                             <input type="checkbox" id="acepta-terminos" required />
-                            <label for="acepta-terminos">Acepto los <a href="#">términos</a></label>
+                            <label for="acepta-terminos">Confirmo que mis datos son correctos</label>
                         </div>
-                        <p id="pago-mensaje" class="mensaje-pago" style="display:none;"></p>
-                        <button type="submit" class="btn-primario">Pagar</button>
+
+                        <p id="pago-mensaje" class="mensaje-pago" style="display:none; text-align: center; font-weight: bold; margin-bottom: 1rem;"></p>
+
+                        <button type="submit" class="btn-primario" style="background-color: #25D366; border-color: #25D366; font-size: 1.1rem; display: flex; justify-content: center; align-items: center; gap: 0.5rem;">
+                            <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i> Enviar Pedido por WhatsApp
+                        </button>
                     </form>
                 </section>
 
